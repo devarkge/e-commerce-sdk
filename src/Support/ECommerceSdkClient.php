@@ -25,13 +25,13 @@ class ECommerceSdkClient
     /**
      * @throws DarkCoreException
      */
-    public function apiCall(string $url, array $options = [])
+    public function apiCall(string $url, array $options = [], string $method = 'post')
     {
         try {
             $params = [
                 'form_params' => $options,
             ];
-            $response = $this->client->post($url, $params);
+            $response = $this->client->$method($url, $params);
             $body = json_decode($response->getBody()->getContents(), true);
             return $body['data'];
         } catch(\Throwable $e) {
